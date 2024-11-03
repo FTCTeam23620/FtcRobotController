@@ -31,29 +31,28 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
  * the autonomous or the teleop period of an FTC match. The names of OpModes appear on the menu
  * of the FTC Driver Station. When an selection is made from the menu, the corresponding OpMode
  * class is instantiated on the Robot Controller and executed.
- *
+ * -
  * This particular OpMode just executes a basic Tank Drive Teleop for a PushBot
  * It includes all the skeletal structure that all linear OpModes contain.
- *
+ * -
  * Remove a @Disabled the on the next line or two (if present) to add this OpMode to the Driver Station OpMode list,
  * or add a @Disabled annotation to prevent this OpMode from being added to the Driver Station
  */
 @TeleOp
 
-public class MechDrive extends LinearOpMode {
-
+public class MechDrive extends LinearOpMode { //class never used, we need the rest of a program to 'use' it, explain where everything else goes please
+//all of these could be local, why are they private
     private DcMotor RightFront;
     private DcMotor RightBack;
     private DcMotor LeftFront;
     private DcMotor LeftBack;
     private DcMotor motorLarm;
     private DcMotor motorRarm;
-    private Blinker control_Hub;
-    private IMU imu;
-    private Servo sR1;
-    private Servo sR2;
-    private Servo sR3;
-
+    private Blinker control_Hub; //what is blinker
+    private IMU imu; //what is imu
+    private Servo sR1; //what is this
+    private Servo sR2; //what is this
+    private Servo sR3; //what is this
 
     @Override
     public void runOpMode() {
@@ -91,31 +90,27 @@ public class MechDrive extends LinearOpMode {
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
             forward= -gamepad1.left_stick_y;
-            strafe= gamepad1.left_stick_x*1.1;
+            strafe= gamepad1.left_stick_x*1.1; //why 1.1?
             turn= gamepad1.right_stick_x;
 
 
-            double denominator= Math.max(Math.abs(forward)+Math.abs(strafe)+Math.abs(turn),1);
+            double denominator= Math.max(Math.abs(forward)+Math.abs(strafe)+Math.abs(turn),1); //explain please, why is there a 1?
             RightFront.setPower((forward-strafe-turn)/denominator);
             RightBack.setPower((forward+strafe-turn)/denominator);
             LeftFront.setPower((forward+strafe+turn)/denominator);
             LeftBack.setPower((forward-strafe+turn)/denominator);
 
             if(gamepad1.y){
-                sR1.setPosition(0.25);
-
+                sR1.setPosition(0.25); //which arm is this?
             }
             else if (gamepad1.b){
-
-                sR1.setPosition(1.5);
+                sR1.setPosition(1.5); //which arm is this?
             }
             else if (gamepad1.x){
-                sR2.setPosition(0.7);
-
+                sR2.setPosition(0.7); //which arm is this?
             }
             else if (gamepad1.a){
-                sR2.setPosition(1);
-
+                sR2.setPosition(1); //which arm is this?
             }
 
 
@@ -126,8 +121,6 @@ public class MechDrive extends LinearOpMode {
                 motorRarm.setPower(1.0);
                 motorLarm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                 motorRarm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-
-
             }
             else if (gamepad1.right_bumper){
                 motorLarm.setTargetPosition(0);
@@ -149,14 +142,14 @@ public class MechDrive extends LinearOpMode {
             }
 
 
-            else if (gamepad1.back){
+            else if (gamepad1.back){ //what is the back button on crontroller?
 
                 sR3.setPosition(0.4);
-                sleep(1500);
+                sleep(1500); //why this much time?
                 sR3.setPosition(1);
 
             }
-
+                //resetting the entire robot at start?
             else if (gamepad1.start){
 
                 motorLarm.setTargetPosition(0);
@@ -169,15 +162,16 @@ public class MechDrive extends LinearOpMode {
                 // motorLarm.setPower(0.0);
                 // motorRarm.setPower(0.0);
 
+                //what are these and why are they commented out?
 
             }
 
             //   motorRarm.setPower(((float)gamepad1.left_trigger));
             //  motorLarm.setPower((-(float)gamepad1.left_trigger));
 
+            //what are these and why are they commented  out?
 
-
-
+            //what is telemetry things? just wondering, seems cool not necessary!
             telemetry.addData("Status", "Running");
             telemetry.addData("Arm Position",  ((Integer)motorRarm.getCurrentPosition()).toString() );
             telemetry.update();
