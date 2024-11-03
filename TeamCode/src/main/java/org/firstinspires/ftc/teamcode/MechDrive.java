@@ -39,14 +39,16 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
  * or add a @Disabled annotation to prevent this OpMode from being added to the Driver Station
  */
 @TeleOp
-
+//has no loop nor init function
 public class MechDrive extends LinearOpMode { //class never used, we need the rest of a program to 'use' it, explain where everything else goes please
-//all of these could be local, why are they private
+    //why MechDrive and not mechDrive (naming consistency?
+    //all of these could be local, why are they private
     private DcMotor RightFront;
     private DcMotor RightBack;
     private DcMotor LeftFront;
     private DcMotor LeftBack;
-    private DcMotor motorLarm;
+    private DcMotor motorLarm; //motorLArm or motorLarm or MotorLArm or MotorLarm, what casing are we using
+    // i get type messages for Larm because its supposed to be LArm when using camel case
     private DcMotor motorRarm;
     private Blinker control_Hub; //what is blinker
     private IMU imu; //what is imu
@@ -72,7 +74,7 @@ public class MechDrive extends LinearOpMode { //class never used, we need the re
         control_Hub = hardwareMap.get(Blinker.class, "Control Hub");
         imu = hardwareMap.get(IMU.class, "imu");
 
-        RightBack.setDirection(DcMotorSimple.Direction.REVERSE);
+        RightBack.setDirection(DcMotorSimple.Direction.REVERSE); //why set reversed
 
         telemetry.addData("Status", "Initialized");
         telemetry.update();
@@ -86,7 +88,7 @@ public class MechDrive extends LinearOpMode { //class never used, we need the re
         double tgtPowerLarm=0.0;
 
 
-
+        //why not use a loop function instead of one big while?
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
             forward= -gamepad1.left_stick_y;
@@ -100,6 +102,8 @@ public class MechDrive extends LinearOpMode { //class never used, we need the re
             LeftFront.setPower((forward+strafe+turn)/denominator);
             LeftBack.setPower((forward-strafe+turn)/denominator);
 
+
+            //why all else ifs instead of individual if statements? what's the positive of using else ifs
             if(gamepad1.y){
                 sR1.setPosition(0.25); //which arm is this?
             }
@@ -171,7 +175,6 @@ public class MechDrive extends LinearOpMode { //class never used, we need the re
 
             //what are these and why are they commented  out?
 
-            //what is telemetry things? just wondering, seems cool not necessary!
             telemetry.addData("Status", "Running");
             telemetry.addData("Arm Position",  ((Integer)motorRarm.getCurrentPosition()).toString() );
             telemetry.update();
